@@ -1,0 +1,49 @@
+For this assignment, you should your ee462xxx account and
+quatro01.ecn.purdue.edu or quatro02.ecn.purdue.edu.  Each machine has
+32 cores.  These machines are donated by Intel in 2010.
+
+============= How to Run ====================
+
+./runtest
+
+This will generate two matrices, each 1024 x 1024.  The results
+are stored in file m3.
+
+It takes 11.307 s to perform matrix computation (in one specific
+instance)
+
+For 4096 x 4096, the multiplication takes 1014.671s.
+
+============= MATLAB ====================
+
+Your program's performance is evaluated by comparing with
+MATLAB.
+
+If you execute MATLAB remotely, you can use 
+
+matlab -nodisplay 
+
+and it will not open a window.  This can be much faster.
+
+Suppose the two source matrices are m1 and m2.  In MATLAB
+
+>> load('m1');
+>> load('m2');
+>> load('m3');
+
+To measure the time spent in MATLAB
+
+>> tic; m4 = m1 * m2; toc      
+
+The two matrices m1 and m2 must be large enough to get meaningful
+time measurement.
+
+How to use MATLAB to check correctness?
+
+>> max(max(abs(m3 - m4)))
+
+If the result is zero, your program produces correct results.
+
+It takes MATLAB 0.106 second to compute m4 (1024 x 1024)
+
+For 4096 x 4096, the multiplication takes 0.783 s.
