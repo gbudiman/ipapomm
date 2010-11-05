@@ -1,0 +1,9 @@
+rm *.o
+rm Makefile
+rm *.pro
+qmake -project
+qmake
+make
+./IPA3 c 1024 m1 
+./IPA3 c 1024 m2 
+./IPA3 m 1 m1 m2 m3
