@@ -197,7 +197,7 @@ int main(int argc, char * argv[])
           ->append(th15->getBack(), matsize*14/16, matsize*15/16)
           ->append(th16->getBack(), matsize*15/16, matsize*16/16);
       }
-      else {
+      else if (numThread == 32) {
         th1 = new MyThread(m1, m2, m3, matsize*0/32, matsize*1/32);
         th2 = new MyThread(m1, m2, m3, matsize*1/32, matsize*2/32);
         th3 = new MyThread(m1, m2, m3, matsize*2/32, matsize*3/32);
