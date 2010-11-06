@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <QtCore>
+#include <qthread.h>
 using namespace std;
 static void commandOptions()
 {
@@ -58,6 +59,39 @@ int main(int argc, char * argv[])
   Matrix * m3 = 0;
   struct timeval t1;
   struct timeval t2;
+  MyThread* th1;
+  MyThread* th2;
+  MyThread* th3;
+  MyThread* th4;
+  MyThread* th5;
+  MyThread* th6;
+  MyThread* th7;
+  MyThread* th8;
+  MyThread* th9;
+  MyThread* th10;
+  MyThread* th11;
+  MyThread* th12;
+  MyThread* th13;
+  MyThread* th14;
+  MyThread* th15;
+  MyThread* th16;
+  MyThread* th17;
+  MyThread* th18;
+  MyThread* th19;
+  MyThread* th20;
+  MyThread* th21;
+  MyThread* th22;
+  MyThread* th23;
+  MyThread* th24;
+  MyThread* th25;
+  MyThread* th26;
+  MyThread* th27;
+  MyThread* th28;
+  MyThread* th29;
+  MyThread* th30;
+  MyThread* th31;
+  MyThread* th32;
+
   switch (cmd)
     {
     case 'c':
@@ -67,7 +101,26 @@ int main(int argc, char * argv[])
       m1 = new Matrix(argv[3]);
       m2 = new Matrix(argv[4]);
       gettimeofday(&t1, 0);
-      m3 = m1 -> multiply(m2, numThread);
+      //m3 = new Matrix(numRow);
+      if (numThread == 1) {
+        th1 = new MyThread(m1, m2, m3, 0, m1->size());
+        th1->start();
+        th1->wait();
+        m3 = th1->getBack();
+      }
+      else if (numThread == 2) {
+        th1 = new MyThread(m1, m2, m3, 0, m1->size()/2);
+        th2 = new MyThread(m1, m2, m3, m1->size()/2, m1->size());
+        th1->start();
+        th2->start();
+        th1->wait();
+        th2->wait();
+        m3 = th1->getBack();
+        //Matrix* mx = th2->getback();
+        m3->append(th2->getBack(), m1->size()/2, m1->size());
+      }
+      //}
+      //m3 = m1 -> multiply(m2, numThread);
       gettimeofday(&t2, 0);
       m3 -> print(argv[5]);
       break;

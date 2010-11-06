@@ -1,9 +1,10 @@
 rm *.o
 rm Makefile
 rm *.pro
+rm IPA3T
 qmake -project
 qmake
 make
-./IPA3 c 1024 m1 
-./IPA3 c 1024 m2 
-./IPA3 m 1 m1 m2 m3
+./IPA3T c 2048 m1 
+./IPA3T c 2048 m2 
+./IPA3T m 2 m1 m2 m3
