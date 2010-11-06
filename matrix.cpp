@@ -35,6 +35,9 @@ int Matrix::allocateMemory(int n)
   for (int r = 0; r <  n; r ++)
     {
       elements[r] = new int [n];
+      for (int mr = 0; mr < n; mr++) {
+	elements[r][mr] = 0;
+      }
       if (elements[r] == NULL) 
 	{
 	  cerr << "memory allocation fail"<< endl;
@@ -127,6 +130,15 @@ Matrix & Matrix::operator = (const Matrix & orig)
   return * this;
 }
 
+Matrix * Matrix::append(Matrix * orig, int rowStart, int rowEnd) {
+  for (int localrow = rowStart; localrow < rowEnd; localrow++) {
+    for (int localcol = 0; localcol < numRow; localcol++) {
+      elements[localrow][localcol] = orig->elements[localrow][localcol];
+    }
+  }
+  return this;
+}
+
 Matrix::~Matrix() {
   if (elements) 
     {
@@ -138,7 +150,7 @@ Matrix::~Matrix() {
     }
 }
 
-Matrix * Matrix::multiply(Matrix * B, int thread)
+Matrix * Matrix::multiply(Matrix * B, int start, int end)
 {
   if (numRow != B -> numRow)
     {
@@ -148,35 +160,44 @@ Matrix * Matrix::multiply(Matrix * B, int thread)
   Matrix * C = new Matrix(numRow);
 
   int step = 32;
-
-  /*for (int i0 = 0; i0 < numRow; i0 += step) {
+  for (int i0 = start; i0 < end; i0 += step) {
     for (int j0 = 0; j0 < numRow; j0 += step) {
       for (int k0 = 0; k0 < numRow; k0 += step) {
-        for (int i = i0; i < min(i0 + step, numRow); i++) {
-	  int* cipointer = C->elements[i];
-	  int* aipointer = elements[i];
+        for (int i = i0; i < min(i0 + step, end); i++) {
+          //mu.lock();
+          int* cipointer = C->elements[i];
+          int* aipointer = elements[i];
           for (int j = j0; j < min(j0 + step, numRow); j++) {
             for (int k = k0; k < min(k0 + step, numRow); k++) {
               //C->elements[i][j] = C->elements[i][j] + elements[i][k] * B->elements[k][j];
-	      cipointer[j] += aipointer[k] * B->elements[k][j]; 
+              //mu.lock();
+              //cout <<i<<","<<j<<"="<<i<<","<<k<<"*"<<k<<","<<j<<endl;
+              cipointer[j] = cipointer[j] +  aipointer[k] * B->elements[k][j];
+              //mu.unlock();
             }
+          }
+          //mu.unlock();
+        }
+      }
+    }
+  }
+
+  /*int step = 32;
+  for (int k2 = start; k2 < end; k2 += step) {
+    cout << k2 << endl;
+    for (int j2 = start; j2 < end; j2 += step) {
+      for (int i = start; i < end; i++) {
+        for (int k1 = k2; k1 < min(k2 + step, end); k1++) {
+          for (int j1 = j2; j1 < min(j2 + step, end); j1++) {
+            //mu.lock();
+            C->elements[j1][i] = C->elements[j1][i] + elements[k1][i] * (B->elements[j1][k1]);
+            //mu.unlock();
           }
         }
       }
     }
   }*/
 
-  for (int k2  = 0; k2 < numRow; k2 += step) {
-    for (int j2 = 0; j2 < numRow; j2 += step) {
-      for (int i = 0; i < numRow; i++) {
-        for (int k1 = k2; min(k2 + step, numRow); k1++) {
-          for (int j1 = j2; min(j2 + step, numRow); j1++) {
-            C->elements[j1][i] += elements[k1][i] * B->elements[j1][k1];
-          }
-        }
-      }
-    }
-  }
   /*for (int r = 0; r < numRow; r ++)
     {
       for (int c = 0; c < numRow; c ++)
