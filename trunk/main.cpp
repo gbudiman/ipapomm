@@ -103,12 +103,11 @@ int main(int argc, char * argv[])
       m2 = new Matrix(argv[4]);
       gettimeofday(&t1, 0);
       matsize = m1->size();
-      //m3 = new Matrix(numRow);
+      m3 = new Matrix(matsize);
       if (numThread == 1) {
         th1 = new MyThread(m1, m2, m3, 0, m1->size());
         th1->start();
         th1->wait();
-        m3 = th1->getBack();
       }
       else if (numThread == 2) {
         th1 = new MyThread(m1, m2, m3, 0, matsize/2);
@@ -117,9 +116,9 @@ int main(int argc, char * argv[])
         th2->start();
         th1->wait();
         th2->wait();
-        m3 = th1->getBack();
+        //m3 = th1->getBack();
         //Matrix* mx = th2->getback();
-        m3->append(th2->getBack(), matsize/2, matsize);
+        //m3->append(th2->getBack(), matsize/2, matsize);
       }
       else if (numThread == 4) {
         th1 = new MyThread(m1, m2, m3, 0, matsize*1/4);
@@ -128,10 +127,6 @@ int main(int argc, char * argv[])
         th4 = new MyThread(m1, m2, m3, matsize*3/4, matsize*4/4);
         th1->start(); th2->start(); th3->start(); th4->start();
         th1->wait(); th2->wait(); th3->wait(); th4->wait();
-        m3 = th1->getBack();
-        m3->append(th2->getBack(), matsize*1/4, matsize*2/4)
-	  ->append(th3->getBack(), matsize*2/4, matsize*3/4)
-          ->append(th4->getBack(), matsize*3/4, matsize*4/4);
       }
       else if (numThread == 8) {
         th1 = new MyThread(m1, m2, m3, matsize*0/8, matsize*1/8);
@@ -146,14 +141,6 @@ int main(int argc, char * argv[])
         th5->start(); th6->start(); th7->start(); th8->start();
         th1->wait(); th2->wait(); th3->wait(); th4->wait();
         th5->wait(); th6->wait(); th7->wait(); th8->wait();
-        m3 = th1->getBack();
-        m3->append(th2->getBack(), matsize*1/8, matsize*2/8)
-	  ->append(th3->getBack(), matsize*2/8, matsize*3/8)
-          ->append(th4->getBack(), matsize*3/8, matsize*4/8)
-	  ->append(th5->getBack(), matsize*4/8, matsize*5/8)
-          ->append(th6->getBack(), matsize*5/8, matsize*6/8)
-	  ->append(th7->getBack(), matsize*6/8, matsize*7/8)
-          ->append(th8->getBack(), matsize*7/8, matsize*8/8);
       }
       else if (numThread == 16) {
         th1 = new MyThread(m1, m2, m3, matsize*0/16, matsize*1/16);
@@ -180,22 +167,6 @@ int main(int argc, char * argv[])
         th5->wait(); th6->wait(); th7->wait(); th8->wait();
         th9->wait(); th10->wait(); th11->wait(); th12->wait();
         th13->wait(); th14->wait(); th15->wait(); th16->wait();
-        m3 = th1->getBack();
-        m3->append(th2->getBack(), matsize*1/16, matsize*2/16)
-          ->append(th3->getBack(), matsize*2/16, matsize*3/16)
-          ->append(th4->getBack(), matsize*3/16, matsize*4/16)
-          ->append(th5->getBack(), matsize*4/16, matsize*5/16)
-          ->append(th6->getBack(), matsize*5/16, matsize*6/16)
-          ->append(th7->getBack(), matsize*6/16, matsize*7/16)
-          ->append(th8->getBack(), matsize*7/16, matsize*8/16)
-          ->append(th9->getBack(), matsize*8/16, matsize*9/16)
-          ->append(th10->getBack(), matsize*9/16, matsize*10/16)
-          ->append(th11->getBack(), matsize*10/16, matsize*11/16)
-          ->append(th12->getBack(), matsize*11/16, matsize*12/16)
-          ->append(th13->getBack(), matsize*12/16, matsize*13/16)
-          ->append(th14->getBack(), matsize*13/16, matsize*14/16)
-          ->append(th15->getBack(), matsize*14/16, matsize*15/16)
-          ->append(th16->getBack(), matsize*15/16, matsize*16/16);
       }
       else if (numThread == 32) {
         th1 = new MyThread(m1, m2, m3, matsize*0/32, matsize*1/32);
@@ -246,38 +217,6 @@ int main(int argc, char * argv[])
         th21->wait(); th22->wait(); th23->wait(); th24->wait();
         th25->wait(); th26->wait(); th27->wait(); th28->wait();
         th29->wait(); th30->wait(); th31->wait(); th32->wait();
-        m3 = th1->getBack();
-        m3->append(th2->getBack(), matsize*1/32, matsize*2/32)
-          ->append(th3->getBack(), matsize*2/32, matsize*3/32)
-          ->append(th4->getBack(), matsize*3/32, matsize*4/32)
-          ->append(th5->getBack(), matsize*4/32, matsize*5/32)
-          ->append(th6->getBack(), matsize*5/32, matsize*6/32)
-          ->append(th7->getBack(), matsize*6/32, matsize*7/32)
-          ->append(th8->getBack(), matsize*7/32, matsize*8/32)
-          ->append(th9->getBack(), matsize*8/32, matsize*9/32)
-          ->append(th10->getBack(), matsize*9/32, matsize*10/32)
-          ->append(th11->getBack(), matsize*10/32, matsize*11/32)
-          ->append(th12->getBack(), matsize*11/32, matsize*12/32)
-          ->append(th13->getBack(), matsize*12/32, matsize*13/32)
-          ->append(th14->getBack(), matsize*13/32, matsize*14/32)
-          ->append(th15->getBack(), matsize*14/32, matsize*15/32)
-          ->append(th16->getBack(), matsize*15/32, matsize*16/32)
-          ->append(th17->getBack(), matsize*16/32, matsize*17/32)
-          ->append(th18->getBack(), matsize*17/32, matsize*18/32)
-          ->append(th19->getBack(), matsize*18/32, matsize*19/32)
-          ->append(th20->getBack(), matsize*19/32, matsize*20/32)
-          ->append(th21->getBack(), matsize*20/32, matsize*21/32)
-          ->append(th22->getBack(), matsize*21/32, matsize*22/32)
-          ->append(th23->getBack(), matsize*22/32, matsize*23/32)
-          ->append(th24->getBack(), matsize*23/32, matsize*24/32)
-          ->append(th25->getBack(), matsize*24/32, matsize*25/32)
-          ->append(th26->getBack(), matsize*25/32, matsize*26/32)
-          ->append(th27->getBack(), matsize*26/32, matsize*27/32)
-          ->append(th28->getBack(), matsize*27/32, matsize*28/32)
-          ->append(th29->getBack(), matsize*28/32, matsize*29/32)
-          ->append(th30->getBack(), matsize*29/32, matsize*30/32)
-          ->append(th31->getBack(), matsize*30/32, matsize*31/32)
-          ->append(th32->getBack(), matsize*31/32, matsize*32/32);
       }
       //}
       //m3 = m1 -> multiply(m2, numThread);

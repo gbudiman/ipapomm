@@ -154,24 +154,47 @@ Matrix::~Matrix() {
     }
 }
 
-Matrix * Matrix::multiply(Matrix * B, int start, int end)
+void Matrix::multiply(Matrix * B, Matrix * C, int start, int end)
 {
   if (numRow != B -> numRow)
     {
       cerr << "different dimensions"<< endl;
-      return 0;
+      //return 0;
     }
-  Matrix * C = new Matrix(numRow);
+  //Matrix * C = new Matrix(numRow);
 
-  int step = 64;
-  for (int i0 = start; i0 < end; i0 += step) {
-    for (int j0 = 0; j0 < numRow; j0 += step) {
-      for (int k0 = 0; k0 < numRow; k0 += step) {
-        for (int i = i0; i < min(i0 + step, end); i++) {
-          int* cipointer = C->elements[i];
-          int* aipointer = elements[i];
-          for (int j = j0; j < min(j0 + step, numRow); j++) {
-            for (int k = k0; k < min(k0 + step, numRow);) {
+  int step = 32;
+  int* cipointer = 0;
+  int* aipointer = 0;
+  int i0;
+  int j0;
+  int k0;
+  int i;
+  int j;
+  int k;
+  /*for (int ii = start; ii < end; ii += step) {
+    for (int kk = 0; kk < numRow; kk += step) {
+      for (int jj = 0; jj < numRow; jj += step) {
+        for (int i = ii; i < min(ii + step, end); i++) {
+          for (int j = jj; j < min(jj + step, numRow); j+=2) {
+            int R = C->elements[j][i];
+            for (int k = kk; k < min(kk + step, numRow); k++) {
+              R = R + B->elements[k][i] * elements[j][k];
+            }
+            C->elements[j][i] = R;
+          }
+        }
+      }
+    }
+  }*/
+  for (i0 = start; i0 < end; i0 += step) {
+    for (j0 = 0; j0 < numRow; j0 += step) {
+      for (k0 = 0; k0 < numRow; k0 += step) {
+        for (i = i0; i < min(i0 + step, end); i++) {
+          cipointer = C->elements[i];
+          aipointer = elements[i];
+          for (j = j0; j < min(j0 + step, numRow); j++) {
+            for (k = k0; k < min(k0 + step, numRow);) {
               cipointer[j] = cipointer[j]+aipointer[k]*B->elements[k++][j];
               cipointer[j] = cipointer[j]+aipointer[k]*B->elements[k++][j];
               cipointer[j] = cipointer[j]+aipointer[k]*B->elements[k++][j];
@@ -211,7 +234,7 @@ Matrix * Matrix::multiply(Matrix * B, int start, int end)
     }
   }
 
-  return C;
+  //return C;
 }
 
 void Matrix::print(char * filename)
