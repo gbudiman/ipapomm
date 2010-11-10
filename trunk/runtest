@@ -1,9 +1,9 @@
 rm *.o
 rm *.pro
-rm IPA3X
+rm IPA3
 qmake -project
 qmake
 make
-./IPA3X c 2048 m1 
-./IPA3X c 2048 m2 
-./IPA3X m 16 m1 m2 m3
+./IPA3 c 64 m1 
+./IPA3 c 64 m2 
+./IPA3 m 2 m1 m2 m3

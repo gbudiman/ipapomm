@@ -43,6 +43,7 @@ class MyThread : public QThread {
     kc = CIN;
     kstart = s;
     kend = e;
+    start();
   }
   void run() {
     ka->multiply(kb, kc, kstart, kend); // unused second parameter;
