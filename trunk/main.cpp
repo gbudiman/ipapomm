@@ -104,27 +104,28 @@ int main(int argc, char * argv[])
       gettimeofday(&t1, 0);
       matsize = m1->size();
       m3 = new Matrix(matsize);
-      if (numThread == 1) {
+      if (matsize <= 64 && numThread > 2) {
+        numThread = 2;
+      }
+      switch (numThread) {
+      case 1:
         th1 = new MyThread(m1, m2, m3, 0, matsize);
         th1->wait();
-      }
-      else if (numThread == 2) {
+        break;
+      case 2:
         th1 = new MyThread(m1, m2, m3, 0, matsize/2);
         th2 = new MyThread(m1, m2, m3, matsize/2, matsize);
         th1->wait();
         th2->wait();
-        //m3 = th1->getBack();
-        //Matrix* mx = th2->getback();
-        //m3->append(th2->getBack(), matsize/2, matsize);
-      }
-      else if (numThread == 4) {
+        break;
+      case 4:
         th1 = new MyThread(m1, m2, m3, 0, matsize*1/4);
         th2 = new MyThread(m1, m2, m3, matsize*1/4, matsize*2/4);
         th3 = new MyThread(m1, m2, m3, matsize*2/4, matsize*3/4);
         th4 = new MyThread(m1, m2, m3, matsize*3/4, matsize);
         th1->wait(); th2->wait(); th3->wait(); th4->wait();
-      }
-      else if (numThread == 8) {
+        break;
+      case 8:
         th1 = new MyThread(m1, m2, m3, 0, matsize*1/8);
         th2 = new MyThread(m1, m2, m3, matsize*1/8, matsize*2/8);
         th3 = new MyThread(m1, m2, m3, matsize*2/8, matsize*3/8);
@@ -135,8 +136,8 @@ int main(int argc, char * argv[])
         th8 = new MyThread(m1, m2, m3, matsize*7/8, matsize);
         th1->wait(); th2->wait(); th3->wait(); th4->wait();
         th5->wait(); th6->wait(); th7->wait(); th8->wait();
-      }
-      else if (numThread == 16) {
+        break;
+      case 16:
         th1 = new MyThread(m1, m2, m3, 0, matsize*1/16);
         th2 = new MyThread(m1, m2, m3, matsize*1/16, matsize*2/16);
         th3 = new MyThread(m1, m2, m3, matsize*2/16, matsize*3/16);
@@ -157,8 +158,8 @@ int main(int argc, char * argv[])
         th5->wait(); th6->wait(); th7->wait(); th8->wait();
         th9->wait(); th10->wait(); th11->wait(); th12->wait();
         th13->wait(); th14->wait(); th15->wait(); th16->wait();
-      }
-      else if (numThread == 32) {
+      break;
+      case 32:
         th1 = new MyThread(m1, m2, m3, 0, matsize*1/32);
         th2 = new MyThread(m1, m2, m3, matsize*1/32, matsize*2/32);
         th3 = new MyThread(m1, m2, m3, matsize*2/32, matsize*3/32);
@@ -199,8 +200,9 @@ int main(int argc, char * argv[])
         th21->wait(); th22->wait(); th23->wait(); th24->wait();
         th25->wait(); th26->wait(); th27->wait(); th28->wait();
         th29->wait(); th30->wait(); th31->wait(); th32->wait();
+      break;
+      default: cout << "Non-standard threads amount" << endl;
       }
-      //}
       //m3 = m1 -> multiply(m2, numThread);
       gettimeofday(&t2, 0);
       m3 -> print(argv[5]);

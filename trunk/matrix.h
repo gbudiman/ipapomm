@@ -20,6 +20,7 @@ class Matrix
   static int create(char * filename, int row);
   // The last argument specifies the number of threads to be used.
   void multiply(Matrix * BM, Matrix * CM, int start, int end);
+  void multiplyGeneric(Matrix * BM, Matrix * CM, int start, int end);
   virtual ~Matrix();
   virtual void print(char * filename);
   virtual int size() { return numRow; }
@@ -47,9 +48,6 @@ class MyThread : public QThread {
   }
   void run() {
     ka->multiply(kb, kc, kstart, kend); // unused second parameter;
-  }
-  Matrix* getBack() {
-    return kc;
   }
  private:
   int kstart;
