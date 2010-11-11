@@ -1,0 +1,26 @@
+rm *.o
+rm *.pro
+rm IPA3
+rm m31
+rm m32
+rm m34
+rm m38
+rm m316
+rm m332
+qmake -project
+qmake
+make
+./IPA3R c 4096 m1 
+./IPA3R c 4096 m2 
+# echo "1 Thread========"
+#./IPA3R m 1 m1 m2 m31
+#echo "2 Thread========"
+#./IPA3R m 2 m1 m2 m32
+#echo "4 Thread========"
+#./IPA3R m 4 m1 m2 m34
+#echo "8 Thread========"
+#./IPA3R m 8 m1 m2 m38
+echo "16 Thread======="
+./IPA3R m 16 m1 m2 m316
+echo "32 Thread======="
+./IPA3R m 32 m1 m2 m332

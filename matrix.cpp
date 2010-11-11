@@ -163,7 +163,7 @@ void Matrix::multiply(Matrix * B, Matrix * C, int start, int end)
     }
   //Matrix * C = new Matrix(numRow);
 
-  int step = 64;
+  int step = 32;
   int* cipointer = 0;
   int* aipointer = 0;
   int i0;
@@ -242,6 +242,47 @@ void Matrix::multiply(Matrix * B, Matrix * C, int start, int end)
   //return C;
 }
 
+void Matrix::multiplyGeneric(Matrix * B, Matrix * C, int start, int end)
+{
+  if (numRow != B -> numRow)
+    {
+      cerr << "different dimensions"<< endl;
+      //return 0;
+    }
+  //Matrix * C = new Matrix(numRow);
+
+  int step = 32;
+  int* cipointer = 0;
+  int* aipointer = 0;
+  int i0;
+  int j0;
+  int k0;
+  int i;
+  int j;
+  int k;
+  int** celements = C->elements;
+  int** belements = B->elements;
+  int sum;
+  for (i0 = start; i0 < end; i0 += step) {
+    for (j0 = 0; j0 < numRow; j0 += step) {
+      for (k0 = 0; k0 < numRow; k0 += step) {
+        for (i = i0; i < min(i0 + step, end); i++) {
+          cipointer = celements[i];
+          aipointer = elements[i];
+          for (j = j0; j < min(j0 + step, numRow); j++) {
+            sum = cipointer[j];
+            for (k = k0; k < min(k0 + step, numRow); k++) {
+              sum += aipointer[k]*belements[k][j];
+            }
+            cipointer[j] = sum;
+          }
+        }
+      }
+    }
+  }
+
+  //return C;
+}
 void Matrix::print(char * filename)
 {
   QFile outfile(filename);
