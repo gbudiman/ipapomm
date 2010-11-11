@@ -105,7 +105,7 @@ int main(int argc, char * argv[])
       matsize = m1->size();
       m3 = new Matrix(matsize);
       if (numThread == 1) {
-        th1 = new MyThread(m1, m2, m3, 0, m1->size());
+        th1 = new MyThread(m1, m2, m3, 0, matsize);
         th1->wait();
       }
       else if (numThread == 2) {
@@ -121,24 +121,23 @@ int main(int argc, char * argv[])
         th1 = new MyThread(m1, m2, m3, 0, matsize*1/4);
         th2 = new MyThread(m1, m2, m3, matsize*1/4, matsize*2/4);
         th3 = new MyThread(m1, m2, m3, matsize*2/4, matsize*3/4);
-        th4 = new MyThread(m1, m2, m3, matsize*3/4, matsize*4/4);
-        th1->start(); th2->start(); th3->start(); th4->start();
+        th4 = new MyThread(m1, m2, m3, matsize*3/4, matsize);
         th1->wait(); th2->wait(); th3->wait(); th4->wait();
       }
       else if (numThread == 8) {
-        th1 = new MyThread(m1, m2, m3, matsize*0/8, matsize*1/8);
+        th1 = new MyThread(m1, m2, m3, 0, matsize*1/8);
         th2 = new MyThread(m1, m2, m3, matsize*1/8, matsize*2/8);
         th3 = new MyThread(m1, m2, m3, matsize*2/8, matsize*3/8);
         th4 = new MyThread(m1, m2, m3, matsize*3/8, matsize*4/8);
         th5 = new MyThread(m1, m2, m3, matsize*4/8, matsize*5/8);
         th6 = new MyThread(m1, m2, m3, matsize*5/8, matsize*6/8);
         th7 = new MyThread(m1, m2, m3, matsize*6/8, matsize*7/8);
-        th8 = new MyThread(m1, m2, m3, matsize*7/8, matsize*8/8);
+        th8 = new MyThread(m1, m2, m3, matsize*7/8, matsize);
         th1->wait(); th2->wait(); th3->wait(); th4->wait();
         th5->wait(); th6->wait(); th7->wait(); th8->wait();
       }
       else if (numThread == 16) {
-        th1 = new MyThread(m1, m2, m3, matsize*0/16, matsize*1/16);
+        th1 = new MyThread(m1, m2, m3, 0, matsize*1/16);
         th2 = new MyThread(m1, m2, m3, matsize*1/16, matsize*2/16);
         th3 = new MyThread(m1, m2, m3, matsize*2/16, matsize*3/16);
         th4 = new MyThread(m1, m2, m3, matsize*3/16, matsize*4/16);
@@ -153,14 +152,14 @@ int main(int argc, char * argv[])
         th13 = new MyThread(m1, m2, m3, matsize*12/16, matsize*13/16);
         th14 = new MyThread(m1, m2, m3, matsize*13/16, matsize*14/16);
         th15 = new MyThread(m1, m2, m3, matsize*14/16, matsize*15/16);
-        th16 = new MyThread(m1, m2, m3, matsize*15/16, matsize*16/16);
+        th16 = new MyThread(m1, m2, m3, matsize*15/16, matsize);
         th1->wait(); th2->wait(); th3->wait(); th4->wait();
         th5->wait(); th6->wait(); th7->wait(); th8->wait();
         th9->wait(); th10->wait(); th11->wait(); th12->wait();
         th13->wait(); th14->wait(); th15->wait(); th16->wait();
       }
       else if (numThread == 32) {
-        th1 = new MyThread(m1, m2, m3, matsize*0/32, matsize*1/32);
+        th1 = new MyThread(m1, m2, m3, 0, matsize*1/32);
         th2 = new MyThread(m1, m2, m3, matsize*1/32, matsize*2/32);
         th3 = new MyThread(m1, m2, m3, matsize*2/32, matsize*3/32);
         th4 = new MyThread(m1, m2, m3, matsize*3/32, matsize*4/32);
@@ -191,7 +190,7 @@ int main(int argc, char * argv[])
         th29 = new MyThread(m1, m2, m3, matsize*28/32, matsize*29/32);
         th30 = new MyThread(m1, m2, m3, matsize*29/32, matsize*30/32);
         th31 = new MyThread(m1, m2, m3, matsize*30/32, matsize*31/32);
-        th32 = new MyThread(m1, m2, m3, matsize*31/32, matsize*32/32);
+        th32 = new MyThread(m1, m2, m3, matsize*31/32, matsize);
         th1->wait(); th2->wait(); th3->wait(); th4->wait();
         th5->wait(); th6->wait(); th7->wait(); th8->wait();
         th9->wait(); th10->wait(); th11->wait(); th12->wait();
