@@ -4,6 +4,48 @@ rm IPA3
 qmake -project
 qmake
 make
+echo "64"
 ./IPA3 c 64 m1 
 ./IPA3 c 64 m2 
+./IPA3 m 1 m1 m2 m3
 ./IPA3 m 2 m1 m2 m3
+./IPA3 m 4 m1 m2 m3
+./IPA3 m 8 m1 m2 m3
+./IPA3 m 16 m1 m2 m3
+./IPA3 m 32 m1 m2 m3
+echo "256"
+./IPA3 c 256 m1 
+./IPA3 c 256 m2 
+./IPA3 m 1 m1 m2 m3
+./IPA3 m 2 m1 m2 m3
+./IPA3 m 4 m1 m2 m3
+./IPA3 m 8 m1 m2 m3
+./IPA3 m 16 m1 m2 m3
+./IPA3 m 32 m1 m2 m3
+echo "1024"
+./IPA3 c 1024 m1 
+./IPA3 c 1024 m2 
+./IPA3 m 1 m1 m2 m3
+./IPA3 m 2 m1 m2 m3
+./IPA3 m 4 m1 m2 m3
+./IPA3 m 8 m1 m2 m3
+./IPA3 m 16 m1 m2 m3
+./IPA3 m 32 m1 m2 m3
+echo "2048"
+./IPA3 c 2048 m1 
+./IPA3 c 2048 m2 
+./IPA3 m 1 m1 m2 m3
+./IPA3 m 2 m1 m2 m3
+./IPA3 m 4 m1 m2 m3
+./IPA3 m 8 m1 m2 m3
+./IPA3 m 16 m1 m2 m3
+./IPA3 m 32 m1 m2 m3
+echo "4096"
+./IPA3 c 4096 m1 
+./IPA3 c 4096 m2 
+./IPA3 m 1 m1 m2 m3
+./IPA3 m 2 m1 m2 m3
+./IPA3 m 4 m1 m2 m3
+./IPA3 m 8 m1 m2 m3
+./IPA3 m 16 m1 m2 m3
+./IPA3 m 32 m1 m2 m3
