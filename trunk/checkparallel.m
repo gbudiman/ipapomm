@@ -1,9 +1,9 @@
 load('m1');
 load('m2');
-%load('m31');
-%load('m32');
-%load('m34');
-%load('m38');
+load('m31');
+load('m32');
+load('m34');
+load('m38');
 load('m316');
 load('m332');
 tic;

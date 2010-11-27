@@ -31,7 +31,6 @@ class Matrix
   void readElement(QTextStream & ins);
   void copyElement(const Matrix & morig); 
   void assignRow(int r, QString & oneLine);
-  QMutex mu;
 };
 
 class MyThread : public QThread {

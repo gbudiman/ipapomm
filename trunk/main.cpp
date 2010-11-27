@@ -118,6 +118,7 @@ int main(int argc, char * argv[])
         th1->wait();
         th2->wait();
         break;
+      //case 3:
       case 4:
         th1 = new MyThread(m1, m2, m3, 0, matsize*1/4);
         th2 = new MyThread(m1, m2, m3, matsize*1/4, matsize*2/4);
@@ -125,6 +126,9 @@ int main(int argc, char * argv[])
         th4 = new MyThread(m1, m2, m3, matsize*3/4, matsize);
         th1->wait(); th2->wait(); th3->wait(); th4->wait();
         break;
+      //case 5:
+      //case 6:
+      //case 7:
       case 8:
         th1 = new MyThread(m1, m2, m3, 0, matsize*1/8);
         th2 = new MyThread(m1, m2, m3, matsize*1/8, matsize*2/8);
@@ -137,6 +141,13 @@ int main(int argc, char * argv[])
         th1->wait(); th2->wait(); th3->wait(); th4->wait();
         th5->wait(); th6->wait(); th7->wait(); th8->wait();
         break;
+      /*case 9:
+      case 10:
+      case 11:
+      case 12:
+      case 13:
+      case 14:
+      case 15:*/
       case 16:
         th1 = new MyThread(m1, m2, m3, 0, matsize*1/16);
         th2 = new MyThread(m1, m2, m3, matsize*1/16, matsize*2/16);
@@ -159,6 +170,21 @@ int main(int argc, char * argv[])
         th9->wait(); th10->wait(); th11->wait(); th12->wait();
         th13->wait(); th14->wait(); th15->wait(); th16->wait();
       break;
+      /*case 17:
+      case 18:
+      case 19:
+      case 20:
+      case 21:
+      case 22:
+      case 23:
+      case 24:
+      case 25:
+      case 26:
+      case 27:
+      case 28:
+      case 29:
+      case 30:
+      case 31:*/
       case 32:
         th1 = new MyThread(m1, m2, m3, 0, matsize*1/32);
         th2 = new MyThread(m1, m2, m3, matsize*1/32, matsize*2/32);
