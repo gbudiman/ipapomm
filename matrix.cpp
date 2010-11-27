@@ -163,7 +163,7 @@ void Matrix::multiply(Matrix * B, Matrix * C, int start, int end)
     }
   //Matrix * C = new Matrix(numRow);
 
-  int step = 32;
+  int step = 64;
   int* cipointer = 0;
   int* aipointer = 0;
   int i0;
@@ -175,6 +175,7 @@ void Matrix::multiply(Matrix * B, Matrix * C, int start, int end)
   int** celements = C->elements;
   int** belements = B->elements;
   int sum;
+  int lmi, lmj, lmk;
   /*for (int ii = start; ii < end; ii += step) {
     for (int kk = 0; kk < numRow; kk += step) {
       for (int jj = 0; jj < numRow; jj += step) {
@@ -191,14 +192,17 @@ void Matrix::multiply(Matrix * B, Matrix * C, int start, int end)
     }
   }*/
   for (i0 = start; i0 < end; i0 += step) {
+    lmi = min(i0 + step, end);
     for (j0 = 0; j0 < numRow; j0 += step) {
+      lmj = min(j0 + step, numRow);
       for (k0 = 0; k0 < numRow; k0 += step) {
-        for (i = i0; i < min(i0 + step, end); i++) {
+        lmk = min(k0 + step, numRow);
+        for (i = i0; i < lmi; i++) {
           cipointer = celements[i];
           aipointer = elements[i];
-          for (j = j0; j < min(j0 + step, numRow); j++) {
+          for (j = j0; j < lmj; j++) {
             sum = cipointer[j];
-            for (k = k0; k < min(k0 + step, numRow); k+=32) {
+            for (k = k0; k < lmk; k+=32) {
               sum += aipointer[k]*belements[k][j];
               sum += aipointer[k+1]*belements[k+1][j];
               sum += aipointer[k+2]*belements[k+2][j];
@@ -251,28 +255,54 @@ void Matrix::multiplyGeneric(Matrix * B, Matrix * C, int start, int end)
     }
   //Matrix * C = new Matrix(numRow);
 
-  int step = 32;
-  int* cipointer = 0;
-  int* aipointer = 0;
-  int i0;
-  int j0;
-  int k0;
-  int i;
-  int j;
-  int k;
+  int step = 64;
   int** celements = C->elements;
   int** belements = B->elements;
-  int sum;
-  for (i0 = start; i0 < end; i0 += step) {
-    for (j0 = 0; j0 < numRow; j0 += step) {
-      for (k0 = 0; k0 < numRow; k0 += step) {
-        for (i = i0; i < min(i0 + step, end); i++) {
-          cipointer = celements[i];
-          aipointer = elements[i];
-          for (j = j0; j < min(j0 + step, numRow); j++) {
-            sum = cipointer[j];
-            for (k = k0; k < min(k0 + step, numRow); k++) {
+  
+  for (int i0 = start; i0 < end; i0 += step) {
+    int imin = min(i0 + step, end);
+    for (int j0 = 0; j0 < numRow; j0 += step) {
+      int jmin = min(j0 + step, numRow);
+      for (int k0 = 0; k0 < numRow; k0 += step) {
+        int kmin = min(k0 + step, numRow);
+        for (int i = i0; i < imin; i++) {
+          int* cipointer = celements[i];
+          int* aipointer = elements[i];
+          for (int j = j0; j < jmin; j++) {
+            int sum = cipointer[j];
+            for (int k = k0; k < kmin; k+=32) {
               sum += aipointer[k]*belements[k][j];
+              sum += aipointer[k+1]*belements[k+1][j];
+              sum += aipointer[k+2]*belements[k+2][j];
+              sum += aipointer[k+3]*belements[k+3][j];
+              sum += aipointer[k+4]*belements[k+4][j];
+              sum += aipointer[k+5]*belements[k+5][j];
+              sum += aipointer[k+6]*belements[k+6][j];
+              sum += aipointer[k+7]*belements[k+7][j];
+              sum += aipointer[k+8]*belements[k+8][j];
+              sum += aipointer[k+9]*belements[k+9][j];
+              sum += aipointer[k+10]*belements[k+10][j];
+              sum += aipointer[k+11]*belements[k+11][j];
+              sum += aipointer[k+12]*belements[k+12][j];
+              sum += aipointer[k+13]*belements[k+13][j];
+              sum += aipointer[k+14]*belements[k+14][j];
+              sum += aipointer[k+15]*belements[k+15][j];
+              sum += aipointer[k+16]*belements[k+16][j];
+              sum += aipointer[k+17]*belements[k+17][j];
+              sum += aipointer[k+18]*belements[k+18][j];
+              sum += aipointer[k+19]*belements[k+19][j];
+              sum += aipointer[k+20]*belements[k+20][j];
+              sum += aipointer[k+21]*belements[k+21][j];
+              sum += aipointer[k+22]*belements[k+22][j];
+              sum += aipointer[k+23]*belements[k+23][j];
+              sum += aipointer[k+24]*belements[k+24][j];
+              sum += aipointer[k+25]*belements[k+25][j];
+              sum += aipointer[k+26]*belements[k+26][j];
+              sum += aipointer[k+27]*belements[k+27][j];
+              sum += aipointer[k+28]*belements[k+28][j];
+              sum += aipointer[k+29]*belements[k+29][j];
+              sum += aipointer[k+30]*belements[k+30][j];
+              sum += aipointer[k+31]*belements[k+31][j];
             }
             cipointer[j] = sum;
           }
