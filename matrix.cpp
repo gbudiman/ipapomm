@@ -248,12 +248,13 @@ void Matrix::multiply(Matrix * B, Matrix * C, int start, int end)
 
 void Matrix::multiplyGeneric(Matrix * B, Matrix * C, int start, int end)
 {
-  if (numRow != B -> numRow)
+  /*if (numRow != B -> numRow)
     {
       cerr << "different dimensions"<< endl;
       //return 0;
     }
   //Matrix * C = new Matrix(numRow);
+  */
 
   int step = 64;
   int** celements = C->elements;
