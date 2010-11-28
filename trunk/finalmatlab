@@ -1,0 +1,22 @@
+rm *.o
+rm *.pro
+rm IPA3
+qmake -project
+qmake
+make
+./IPA3 c 1024 m1_1024
+./IPA3 c 1024 m2_1024
+./IPA3 c 2048 m1_2048
+./IPA3 c 2048 m2_2048
+./IPA3 c 4096 m1_4096
+./IPA3 c 4096 m2_4096
+echo "Testing with 16 thread"
+./IPA3 m 16 m1_1024 m2_1024 m3_1024
+./IPA3 m 16 m1_2048 m2_2048 m3_2048
+./IPA3 m 16 m1_4096 m2_4096 m3_4096
+echo "Done"
+echo "Testing with 32 thread"
+./IPA3 m 32 m1_1024 m2_1024 m3_1024
+./IPA3 m 32 m1_2048 m2_2048 m3_2048
+./IPA3 m 32 m1_4096 m2_4096 m3_4096
+echo "Done"

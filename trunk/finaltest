@@ -1,0 +1,89 @@
+rm *.o
+rm *.pro
+rm IPA3
+qmake -project
+qmake
+make
+echo "Testing with 1 thread"
+./IPA3 m 1 ../IPA3Sample/m1_64 ../IPA3Sample/m2_64 m3_64
+./IPA3 m 1 ../IPA3Sample/m1_256 ../IPA3Sample/m2_256 m3_256
+./IPA3 m 1 ../IPA3Sample/m1_1024 ../IPA3Sample/m2_1024 m3_1024
+./IPA3 m 1 ../IPA3Sample/m1_2048 ../IPA3Sample/m2_2048 m3_2048
+./IPA3 m 1 ../IPA3Sample/m1_4096 ../IPA3Sample/m2_4096 m3_4096
+echo "Diffs..."
+diff m3_64 ../IPA3Sample/m3_64
+diff m3_256 ../IPA3Sample/m3_256
+diff m3_1024 ../IPA3Sample/m3_1024
+diff m3_2048 ../IPA3Sample/m3_2048
+diff m3_4096 ../IPA3Sample/m3_4096
+echo "Done"
+echo "Testing with 2 thread"
+./IPA3 m 2 ../IPA3Sample/m1_64 ../IPA3Sample/m2_64 m3_64
+./IPA3 m 2 ../IPA3Sample/m1_256 ../IPA3Sample/m2_256 m3_256
+./IPA3 m 2 ../IPA3Sample/m1_1024 ../IPA3Sample/m2_1024 m3_1024
+./IPA3 m 2 ../IPA3Sample/m1_2048 ../IPA3Sample/m2_2048 m3_2048
+./IPA3 m 2 ../IPA3Sample/m1_4096 ../IPA3Sample/m2_4096 m3_4096
+echo "Diffs..."
+diff m3_64 ../IPA3Sample/m3_64
+diff m3_256 ../IPA3Sample/m3_256
+diff m3_1024 ../IPA3Sample/m3_1024
+diff m3_2048 ../IPA3Sample/m3_2048
+diff m3_4096 ../IPA3Sample/m3_4096
+rm m3_*
+echo "Done"
+echo "Testing with 4 thread"
+./IPA3 m 4 ../IPA3Sample/m1_64 ../IPA3Sample/m2_64 m3_64
+./IPA3 m 4 ../IPA3Sample/m1_256 ../IPA3Sample/m2_256 m3_256
+./IPA3 m 4 ../IPA3Sample/m1_1024 ../IPA3Sample/m2_1024 m3_1024
+./IPA3 m 4 ../IPA3Sample/m1_2048 ../IPA3Sample/m2_2048 m3_2048
+./IPA3 m 4 ../IPA3Sample/m1_4096 ../IPA3Sample/m2_4096 m3_4096
+echo "Diffs..."
+diff m3_64 ../IPA3Sample/m3_64
+diff m3_256 ../IPA3Sample/m3_256
+diff m3_1024 ../IPA3Sample/m3_1024
+diff m3_2048 ../IPA3Sample/m3_2048
+diff m3_4096 ../IPA3Sample/m3_4096
+rm m3_*
+echo "Done"
+echo "Testing with 8 thread"
+./IPA3 m 8 ../IPA3Sample/m1_64 ../IPA3Sample/m2_64 m3_64
+./IPA3 m 8 ../IPA3Sample/m1_256 ../IPA3Sample/m2_256 m3_256
+./IPA3 m 8 ../IPA3Sample/m1_1024 ../IPA3Sample/m2_1024 m3_1024
+./IPA3 m 8 ../IPA3Sample/m1_2048 ../IPA3Sample/m2_2048 m3_2048
+./IPA3 m 8 ../IPA3Sample/m1_4096 ../IPA3Sample/m2_4096 m3_4096
+echo "Diffs..."
+diff m3_64 ../IPA3Sample/m3_64
+diff m3_256 ../IPA3Sample/m3_256
+diff m3_1024 ../IPA3Sample/m3_1024
+diff m3_2048 ../IPA3Sample/m3_2048
+diff m3_4096 ../IPA3Sample/m3_4096
+rm m3_*
+echo "Done"
+echo "Testing with 16 thread"
+./IPA3 m 16 ../IPA3Sample/m1_64 ../IPA3Sample/m2_64 m3_64
+./IPA3 m 16 ../IPA3Sample/m1_256 ../IPA3Sample/m2_256 m3_256
+./IPA3 m 16 ../IPA3Sample/m1_1024 ../IPA3Sample/m2_1024 m3_1024
+./IPA3 m 16 ../IPA3Sample/m1_2048 ../IPA3Sample/m2_2048 m3_2048
+./IPA3 m 16 ../IPA3Sample/m1_4096 ../IPA3Sample/m2_4096 m3_4096
+echo "Diffs..."
+diff m3_64 ../IPA3Sample/m3_64
+diff m3_256 ../IPA3Sample/m3_256
+diff m3_1024 ../IPA3Sample/m3_1024
+diff m3_2048 ../IPA3Sample/m3_2048
+diff m3_4096 ../IPA3Sample/m3_4096
+rm m3_*
+echo "Done"
+echo "Testing with 32 thread"
+./IPA3 m 32 ../IPA3Sample/m1_64 ../IPA3Sample/m2_64 m3_64
+./IPA3 m 32 ../IPA3Sample/m1_256 ../IPA3Sample/m2_256 m3_256
+./IPA3 m 32 ../IPA3Sample/m1_1024 ../IPA3Sample/m2_1024 m3_1024
+./IPA3 m 32 ../IPA3Sample/m1_2048 ../IPA3Sample/m2_2048 m3_2048
+./IPA3 m 32 ../IPA3Sample/m1_4096 ../IPA3Sample/m2_4096 m3_4096
+echo "Diffs..."
+diff m3_64 ../IPA3Sample/m3_64
+diff m3_256 ../IPA3Sample/m3_256
+diff m3_1024 ../IPA3Sample/m3_1024
+diff m3_2048 ../IPA3Sample/m3_2048
+diff m3_4096 ../IPA3Sample/m3_4096
+rm m3_*
+echo "Done"
